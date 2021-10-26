@@ -183,3 +183,34 @@ Exit chroot
 # umount -R /mnt
 # reboot
 ```
+
+## 13: Creating Users
+Login as root
+Create users:
+```
+# useradd -m jp
+# useradd -m sal
+# useradd -m codi
+```
+Set passwords with ```passwd```
+
+Force password change on next login:
+```
+# passwd -e sal
+# passwd -e codi
+```
+Give sudo permissions by adding users to wheel group:
+```
+# usermod -aG wheel jp
+# usermod -aG wheel sal
+# usermod -aG wheel codi
+```
+Download vi
+```
+# pacman -S vi
+```
+Uncomment ```%wheel ALL=(ALL) ALL``` from /etc/sudoers using:
+```
+# visudo
+```
+
