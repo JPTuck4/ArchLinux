@@ -214,3 +214,45 @@ Uncomment ```%wheel ALL=(ALL) ALL``` from /etc/sudoers using:
 # visudo
 ```
 
+## 13: Installing KDE
+Install packages:
+```
+pacman -S xorg plasma plasma-wayland-session kde-applications 
+```
+Enable services:
+```
+systemctl enable sddm.service
+systemctl enable NetworkManager.service
+```
+Shutdown system:
+```
+shutdown now
+```
+
+## 14: Install ZSH
+Install packages:
+```
+pacman -S zsh
+```
+Configure:
+```
+zsh
+```
+
+## 15: Color coded Terminal
+Make backup:
+```
+sudo cp /etc/bash.bashrc /etc/bash.bashrc.backup
+```
+Download the following files: https://averagelinuxuser.com/assets/images/posts/2019-01-18-linux-terminal-color/Linux_terminal_color.zip
+
+Move the files as shown:
+```
+sudo mv bash.bashrc /etc/bash.bashrc
+sudo mv DIR_COLORS /etc/
+mv .bashrc ~/.bashrc
+```
+
+
+
+
