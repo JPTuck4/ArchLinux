@@ -253,6 +253,9 @@ sudo mv DIR_COLORS /etc/
 mv .bashrc ~/.bashrc
 ```
 
-
+## 16: Install ssh
+```
+sudo pacman -Syu 
+```
 
 
