@@ -104,7 +104,7 @@ Edit /etc/locale.gen and uncomment en_US.UTF-8 UTF-8 using:
 ```
 # vim /etc/locale.gen
 ```
-Then generate locales with
+Then generate locales with:
 ```
 # locale-gen
 ```
@@ -112,7 +112,7 @@ Next add the line LANG=en_US.UTF-8 to the file /etc/locale.conf using:
 ```
 # vim /etc/locale.conf
 ```
-Edit the /etc/hostname and add chosen hostname jparchvm
+Edit the /etc/hostname and add chosen hostname jparchvm using:
 ```
 # vim /etc/hostname
 ```
@@ -126,5 +126,60 @@ Finally, edit /etc/hosts to look like the following:
 
 
 ## 8: Networking
+Enable the following:
+```
+# systemctl enable systemd-networkd
+# systemctl enable systemd-resolved
+```
+Determine Network Interface using:
+```
+ip addr
+```
+Note: interface name is ens33
 
+Edit /etc/systemd/network/20-wired.network and add the following:
+```
+[Match]
+Name=ens33
 
+[Network]
+DHCP=yes
+```
+
+## 9: Set password
+```
+# passwd
+```
+
+## 10: Install Intel Microcode
+```
+# pacman -S intel-ucode
+```
+
+## 11: Install bootloader
+Install grub and efibootmgr packages:
+```
+# pacman -S grub efibootmgr
+```
+Install grub bootloader to the EFI partition:
+```
+# grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+```
+Generate main grub configuration file:
+```
+# grub-mkconfig -o /boot/grub/grub.cfg
+```
+Edit /etc/default/grub and add:
+```
+GRUB_DISABLE_OS_PROBER=false
+```
+Exit chroot
+```
+# exit
+```
+
+## 12: unmount partitions an d reboot system
+```
+# umount -R /mnt
+# reboot
+```
