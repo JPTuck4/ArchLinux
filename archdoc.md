@@ -76,4 +76,55 @@ First create boot directory and then mount
 # mount /dev/sda1 /mnt/boot
 ```
 
-## 5:
+## 5: Install Essential Packages
+
+```
+# pacstrap /mnt base linux linux-firmware
+```
+
+## 6: Generate fstab file
+```
+# genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+## 7: Update timezone, localization and hostname
+chroot into mnt:
+```
+# arch-chroot /mnt
+```
+Update timezone:
+```
+# ln -sf /usr/share/zoneinfo/US/Central /etc/localtime
+```
+Install vim:
+```
+# pacman -S vim
+```
+Edit /etc/locale.gen and uncomment en_US.UTF-8 UTF-8 using:
+```
+# vim /etc/locale.gen
+```
+Then generate locales with
+```
+# locale-gen
+```
+Next add the line LANG=en_US.UTF-8 to the file /etc/locale.conf using:
+```
+# vim /etc/locale.conf
+```
+Edit the /etc/hostname and add chosen hostname jparchvm
+```
+# vim /etc/hostname
+```
+Finally, edit /etc/hosts to look like the following:
+```
+127.0.0.1   localhost
+::1         localhost
+127.0.1.1   jparchvm.localdomain  jparchvm
+```
+
+
+
+## 8: Networking
+
+
