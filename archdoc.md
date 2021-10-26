@@ -1,27 +1,79 @@
 # ArchLinux Documentation
 
 ## 1: Verify Boot Mode
-```# ls /sys/firmware/efi/efivars```
+```
+# ls /sys/firmware/efi/efivars
+```
 
 Since this command returned the directory, the system was booted in UEFI mode.
 
-## 2: Connect to the Internet
-**Make sure the card is not blocked**
+## 2: Check Default Network Config
 
-```rfkill list```
+```
+# ping -c 4 www.linuxconfig.org
+```
 
-**Install iwd:**
+No Packets Lost
 
-```pacman -Sy iwd```
+## 3: Update System Clock
 
-**Start and Enable iwd.service**
+```
+# timedatectl set-ntp true
+```
 
-```systemctl start iwd.service```
+## 4: Partion The Disk
 
-```systemctl enable iwd.service```
+### Create Partitions
 
-### Connect to wireless:
-```iwctl```
+```
+# lsblk
+```
 
-See device name: ```device list```
--No devices are showing
+```
+# cfdisk /dev/sda
+```
+
+Select gpt
+
+Create first partition: 500M EFI System
+
+Create second partition: 18.5G Linux filesystem
+
+Create third partition: 1G Swap Linux Swap, write partition table to disk
+
+Confirm Partions with ```lsblk```
+
+### Create Filesystems
+
+Swap:
+```
+# mkswap /dev/sda3
+# swapon /dev/sda3
+```
+
+Root:
+```
+# mkfs.ext4 /dev/sda2
+```
+
+EFI:
+```
+mkfs.fat -F32 /dev/sda1
+```
+
+### Mount the partitions
+
+Root:
+```
+# mount /dev/sda2 /mnt
+```
+
+EFI:
+
+First create boot directory and then mount
+```
+# mkdir /mnt/boot
+# mount /dev/sda1 /mnt/boot
+```
+
+## 5:
