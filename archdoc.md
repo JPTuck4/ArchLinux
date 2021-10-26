@@ -258,4 +258,25 @@ mv .bashrc ~/.bashrc
 sudo pacman -Syu 
 ```
 
+## 17: Create Aliases
+Edit ~/.bashrc and add the following:
+```
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
+```
 
+Edit ~/.bash_aliases and add:
+```
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
+alias jp='echo is cool'
+alias sshc='ssh -p53997 jpt4373@129.244.245.21'
+```
+
+Activate aliases:
+```
+$ source ~/.bash_aliases
+```
